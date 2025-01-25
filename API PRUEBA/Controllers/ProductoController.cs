@@ -17,17 +17,17 @@ namespace APIPRUEBA.Controllers
 
         public ProductoController(IConfiguration configuration)
         {
-            _configuration = configuration; // Asignar el objeto IConfiguration al campo privado
+            _configuration = configuration; 
+
             var connectionString = _configuration.GetSection("MongoDB:ConnectionString").Value;
             var databaseName = _configuration.GetSection("MongoDB:DatabaseName").Value;
 
             if (string.IsNullOrEmpty(connectionString) || string.IsNullOrEmpty(databaseName))
-
-            { 
+            {
                 throw new InvalidOperationException("La configuración de MongoDB no está correctamente definida en appsettings.json");
             }
 
-            var context = new MongoDbContext(connectionString, databaseName);
+            context = new MongoDbContext(connectionString, databaseName);
             _repository = new ProductoRepository(context);
         }
 
